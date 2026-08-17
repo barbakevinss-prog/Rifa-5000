@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rifa 5000</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: white;
+    }
+
+    header {
+      background: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #e00000;
+    }
+
+    header h1 {
+      color: #e00000;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #ccc;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #171717;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #292929;
+    }
+
+    .card h2 {
+      color: #e00000;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #ddd;
+      font-size: 18px;
+    }
+
+    .section {
+      background: #151515;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .instructions {
+      line-height: 1.7;
+      color: #ccc;
+    }
+
+    .ticket-search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 14px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #e00000;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #b80000;
+    }
+
+    .tickets {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+      gap: 7px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .ticket {
+      padding: 10px 5px;
+      text-align: center;
+      border-radius: 6px;
+      background: #222;
+      border: 1px solid #333;
+      cursor: pointer;
+    }
+
+    .ticket:hover {
+      background: #e00000;
+    }
+
+    .ticket.reserved {
+      background: #8a6500;
+      color: white;
+      cursor: not-allowed;
+    }
+
+    .ticket.sold {
+      background: #333;
+      color: #777;
+      cursor: not-allowed;
+    }
+
+    .legend {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      color: #ccc;
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .available {
+      background: #222;
+      border: 1px solid #555;
+    }
+
+    .reserved-dot {
+      background: #8a6500;
+    }
+
+    .sold-dot {
+      background: #333;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 26px;
+      }
+
+      .ticket-search {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎟️ RIFA 5000</h1>
+  <p>Participa por tu oportunidad de ganar</p>
+</header>
+
+<div class="container">
+
+  <div class="info">
+
+    <div class="card">
+      <h2>$5</h2>
+      <p>Precio por boleto</p>
+    </div>
+
+    <div class="card">
+      <h2>5,000</h2>
+      <p>Boletos disponibles</p>
+    </div>
+
+    <div class="card">
+      <h2>$10,000</h2>
+      <p>Premio principal</p>
+    </div>
+
+    <div class="card">
+      <h2>$25,000</h2>
+      <p>Meta de recaudación</p>
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <h2>📋 ¿Cómo participar?</h2>
+
+    <div class="instructions">
+
+      <p>1️⃣ Elige uno o varios números disponibles.</p>
+
+      <p>2️⃣ Realiza tu transferencia por el total de tus boletos.</p>
+
+      <p>3️⃣ Envía tu comprobante de pago.</p>
+
+      <p>4️⃣ Revisaremos tu comprobante.</p>
+
+      <p>5️⃣ Una vez verificado, tus boletos quedarán registrados a tu nombre.</p>
+
+      <p>6️⃣ El ganador será seleccionado aleatoriamente y el proceso será público.</p>
+
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <h2>🎟️ Elige tus boletos</h2>
+
+    <div class="ticket-search">
+
+      <input
+        type="number"
+        id="ticketNumber"
+        min="1"
+        max="5000"
+        placeholder="Buscar número de boleto..."
+      >
+
+      <button onclick="buscarBoleto()">
+        Buscar
+      </button>
+
+    </div>
+
+    <div id="tickets" class="tickets"></div>
+
+    <div class="legend">
+
+      <span>
+        <span class="dot available"></span>
+        Disponible
+      </span>
+
+      <span>
+        <span class="dot reserved-dot"></span>
+        Reservado
+      </span>
+
+      <span>
+        <span class="dot sold-dot"></span>
+        Vendido
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <h2>💳 Realizar pago</h2>
+
+    <div class="instructions">
+
+      <p><strong>Banco:</strong> PRÓXIMAMENTE</p>
+
+      <p><strong>Titular:</strong> PRÓXIMAMENTE</p>
+
+      <p><strong>CLABE:</strong> PRÓXIMAMENTE</p>
+
+      <br>
+
+      <p>
+        Después de realizar tu transferencia podrás enviar
+        tu comprobante desde esta página.
+      </p>
+
+    </div>
+
+    <br>
+
+    <button onclick="alert('Esta sección se habilitará en el siguiente paso.')">
+      📤 Enviar comprobante
+    </button>
+
+  </div>
+
+</div>
+
+<footer>
+  Rifa 5000 © 2026
+</footer>
+
+<script>
+
+  const totalBoletos = 5000;
+
+  function crearBoletos() {
+
+    const contenedor = document.getElementById("tickets");
+
+    for (let i = 1; i <= totalBoletos; i++) {
+
+      const boleto = document.createElement("div");
+
+      boleto.className = "ticket";
+
+      boleto.textContent = i.toString().padStart(4, "0");
+
+      boleto.onclick = function () {
+
+        seleccionarBoleto(i);
+
+      };
+
+      contenedor.appendChild(boleto);
+    }
+  }
+
+  function seleccionarBoleto(numero) {
+
+    alert(
+      "Seleccionaste el boleto #" +
+      numero.toString().padStart(4, "0")
+    );
+
+  }
+
+  function buscarBoleto() {
+
+    const numero =
+      parseInt(document.getElementById("ticketNumber").value);
+
+    if (
+      isNaN(numero) ||
+      numero < 1 ||
+      numero > totalBoletos
+    ) {
+
+      alert("Introduce un número entre 1 y 5000.");
+
+      return;
+    }
+
+    seleccionarBoleto(numero);
+
+  }
+
+  crearBoletos();
+
+</script>
+
+</body>
+</html>
